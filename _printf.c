@@ -12,6 +12,7 @@ int _printf(const char *format, ...)
 {
 int i = 0;
 va_list args;
+char *str;
 
 va_start(args, format);
 
@@ -23,20 +24,20 @@ while (format[i] != '\0')
     }
     else
     {
-        if(format[i + 1] == 'c')
-        {
-            _putchar(va_arg(args, int));
-            i++;
-        }
-        else if (format[i + 1] == 's')
-        {
-            /* code */
-        }
-        else if (format[i + 1] == '%')
-        {
-            _putchar('%');
-            i++;
-        }
+    if(format[i + 1] == 'c')
+    {
+         _putchar(va_arg(args, int));
+        i++;
+    }
+    else if (format[i + 1] == 's')
+    {
+        str = va_arg(args, char *);
+    }
+    else if (format[i + 1] == '%')
+    {
+         _putchar('%');
+        i++;
+    }
         
     }
         
