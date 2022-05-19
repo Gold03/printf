@@ -3,6 +3,7 @@
 
 /*The prototypes of our functions goes in here */
 int _putchar(char c);
+int _printf(const char *format, ...);
 
 #endif
 
