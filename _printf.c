@@ -48,7 +48,7 @@ while (format[i] != '\0')
     }
         
     }
-        
+  i++;      
 }
 
 va_end(args);
