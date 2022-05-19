@@ -34,7 +34,14 @@ int _printf(const char *format, ...)
 			else if (format[i + 1] == 's')
 			{
 				i++;
-				_print_str(va_arg(args, char *));
+				str = va_arg(args, char *);
+				k = 0;
+				while (str[k] != '\0')
+				{
+					_putchar(str[k]);
+					n_displayed++;
+					k++;
+				}
 			}
 			else if (format[i + 1] == '%')
 			{
