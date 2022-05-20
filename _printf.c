@@ -1,43 +1,49 @@
 #include "main.h"
 /**
- * _printf - printf function
- * @format: const char pointer
- * Return: b_len
+ * _printf - replicate prinft
+ *
+ * @format: format printf
+ * Return: Always 0
  */
 int _printf(const char *format, ...)
 {
-	int (*pfunc)(va_list, flags_t *);
-	const char *p;
-	va_list arguments;
-	flags_t flags = {0, 0, 0};
 
-	register int count = 0;
+	int (*printer)(va_list);
+	int length = 0;
+	va_list content;
 
-	va_start(arguments, format);
+	va_start(content, format);
+
 	if (!format || (format[0] == '%' && !format[1]))
 		return (-1);
+
 	if (format[0] == '%' && format[1] == ' ' && !format[2])
 		return (-1);
-	for (p = format; *p; p++)
+
+	for (; *format; format++)
 	{
-		if (*p == '%')
+		if (*format == '%')
 		{
-			p++;
-			if (*p == '%')
+			format++;
+
+			printer = get_print(*format);
+
+			if (printer)
 			{
-				count += _putchar('%');
-				continue;
+				length += printer(content);
 			}
-			while (get_flag(*p, &flags))
-				p++;
-			pfunc = get_print(*p);
-			count += (pfunc)
-				? pfunc(arguments, &flags)
-				: _printf("%%%c", *p);
-		} else
-			count += _putchar(*p);
+			else
+			{
+				length += _putchar('%');
+				length += _putchar(*format);
+			}
+		}
+		else
+		{
+			length += _putchar(*format);
+		}
 	}
-	_putchar(-1);
-	va_end(arguments);
-	return (count);
+	va_end(content);
+
+	return (length);
 }
